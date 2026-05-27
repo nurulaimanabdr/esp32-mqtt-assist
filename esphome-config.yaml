@@ -1,0 +1,52 @@
+esphome:
+  name: esp32
+
+esp32:
+  board: nodemcu-32s
+  framework:
+    type: esp-idf
+
+logger:
+
+# Ensure 'api:' is removed or commented out to prioritize native MQTT broadcast routing
+# api:
+
+ota:
+  - platform: esphome
+
+wifi:
+  ssid: "Billwong-TIME"
+  password: "Billwong1234"
+
+  ap:
+    ssid: "Esp32 Fallback Hotspot"
+    password: "YOUR_HOTSPOT_PASSWORD"
+
+captive_portal:
+
+# --- MQTT BROKER PARAMS ---
+mqtt:
+  broker: "192.168.X.X" # Students: Input your specific server IP address here
+
+# --- INPUT CHANNELS (Publishing States to MQTT) ---
+binary_sensor:
+  - platform: gpio
+    pin: 27
+    name: "Esp32 Lab Motion Sensor"
+    device_class: motion
+
+sensor:
+  - platform: adc
+    pin: 34
+    name: "Esp32 Lab Light Level"
+    update_interval: 5s
+    filters:
+      - multiply: 100
+    unit_of_measurement: "%"
+
+# --- OUTPUT CHANNELS (Subscribing to Incoming MQTT Commands) ---
+switch:
+  - platform: gpio
+    pin: 2
+    name: "ESP32 Onboard LED"
+    icon: "mdi:led-on"
