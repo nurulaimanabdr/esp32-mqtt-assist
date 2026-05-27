@@ -8,8 +8,6 @@ This repository contains the step-by-step lab guide to building a conditional sm
 * 1x ESP32 Dev Kit (NodeMCU-32S)
 * 1x HC-SR501 PIR Motion Sensor Module (5V compliant)
 * 1x Analog LDR Light Sensor Module (with AO output)
-* 1x Standard LED (Any color)
-* 1x 220Ω or 330Ω Resistor
 * 1x Half-size or Full-size Breadboard
 * Male-to-Male (M-M) and Female-to-Male (F-M) Jumper Wires
 
@@ -42,13 +40,6 @@ To prevent permanent chip damage, you **must separate the power rails** on your 
    * Connect **VCC** to the Right 3.3V (+) rail.
    * Connect **GND** to the Right GND (-) rail.
    * Connect **AO** (Analog Output) to ESP32 **GPIO34**.
-6. **Wire the Output Testing LED:**
-   * Insert the LED into the numbered middle terminal rows. Ensure the legs are in separate rows (e.g., Row 5 and Row 6).
-   * Identify the polarity: **Short Leg = Negative (-)**, **Long Leg = Positive (+)**.
-   * Connect a jumper wire from the **Short Leg** row to the local **GND (-) rail**.
-   * Place your **220Ω resistor** bridging the **Long Leg** row to an empty row nearby (e.g., Row 7).
-   * Run a jumper wire from that resistor row straight to ESP32 **GPIO2**.
-
 ---
 
 ## 💻 Step 2: ESPHome Firmware Configuration
