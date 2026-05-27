@@ -1,0 +1,26 @@
+alias: "Lab: Smart Light Control"
+description: "Turns the LED ON when dark and motion is detected, and OFF when motion clears."
+mode: restart
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.esp32_lab_motion_sensor
+    to: "on"
+conditions:
+  - condition: numeric_state
+    entity_id: sensor.esp32_lab_light_level
+    below: 30
+actions:
+  - action: switch.turn_on
+    target:
+      entity_id: switch.esp32_onboard_led
+  
+  # The wait sequence holds the script loop open until data streams signal an empty room
+  - wait_for_trigger:
+      - trigger: state
+        entity_id: binary_sensor.esp32_lab_motion_sensor
+        to: "off"
+        for: "00:00:10" # Safety delay buffer before switching off
+        
+  - action: switch.turn_off
+    target:
+      entity_id: switch.esp32_onboard_led
